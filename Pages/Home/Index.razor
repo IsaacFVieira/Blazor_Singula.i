@@ -1,0 +1,28 @@
+@page "/"
+@using Singular.Services
+@using Singular.ComponentsPages.Home
+@using Singular.ComponentsPages.Common
+@inject ThemeService ThemeService
+
+<PageTitle>SINGULAR.i — Desenvolvimento de Software</PageTitle>
+
+<Header />
+<HeroSection />
+<AboutIntroSection />
+<AngoticBanner />
+<FeaturedProductsSection />
+<AboutSection />
+<MissionSection />
+<WhySingularSection />
+<FinalCtaSection />
+<Footer />
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await ThemeService.InitializeThemeAsync();
+        }
+    }
+}

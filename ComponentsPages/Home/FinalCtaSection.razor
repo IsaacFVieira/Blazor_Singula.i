@@ -1,0 +1,20 @@
+﻿@inject NavigationManager Navigation
+
+<section class="final-cta-section">
+    <div class="container">
+        <h2 class="cta-title">Transforme ideias em soluções digitais reais.</h2>
+        <p class="cta-text">
+            Entre em contacto com a SINGULAR.i e desenvolva o seu projeto connosco.
+        </p>
+        <button class="cta-button" @onclick="NavigateToContact">
+            Falar Connosco
+        </button>
+    </div>
+</section>
+
+@code {
+    private void NavigateToContact()
+    {
+        Navigation.NavigateTo("/contacto");
+    }
+}

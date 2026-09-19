@@ -1,0 +1,25 @@
+﻿@inject NavigationManager Navigation
+
+<section class="angotic-banner">
+    <div class="banner-image-container">
+        <img src="/images/ango(1).jpeg" alt="ANGOTIC 2026" class="banner-image" />
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h2 class="banner-title">SINGULAR.i no ANGOTIC 2026</h2>
+                <p class="banner-text">
+                    Conectamos o futuro às soluções que transformam Angola. Visite o nosso stand e conheça a tecnologia que eleva o patamar este ano.
+                </p>
+                <button class="banner-button" @onclick="NavigateToAngotic">
+                    Ver Mais
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private void NavigateToAngotic()
+    {
+        Navigation.NavigateTo("/angotic");
+    }
+}

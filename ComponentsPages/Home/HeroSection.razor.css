@@ -1,0 +1,42 @@
+.hero-section {
+    width: 100%;
+    background-color: #020617;
+}
+
+.hero-container {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.hero-mobile {
+    display: block;
+    width: 100%;
+}
+
+.hero-desktop {
+    display: none;
+    width: 100%;
+}
+
+.hero-mobile-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.hero-desktop-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    .hero-mobile {
+        display: none;
+    }
+
+    .hero-desktop {
+        display: block;
+    }
+}

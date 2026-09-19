@@ -1,0 +1,51 @@
+﻿@using Singular.Services
+@inject NavigationManager Navigation
+@inject ThemeService ThemeService
+
+<header class="header">
+    <div class="header-container">
+        <div class="header-logo">
+            <img src="@LogoSrc" alt="SINGULAR.i" class="logo-image" @onclick="NavigateToHome" />
+        </div>
+        <nav class="header-nav">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/sobre" class="nav-link">Sobre</a>
+            <a href="/products" class="nav-link">Produtos</a>
+            <a href="/servicos" class="nav-link">Serviços</a>
+            <a href="/contacto" class="nav-link">Contacto</a>
+        </nav>
+        <button class="header-cta" @onclick="NavigateToContact">
+            Contacto
+        </button>
+        <button class="theme-toggle" @onclick="ToggleTheme">
+            @ThemeIcon
+        </button>
+    </div>
+</header>
+
+@code {
+    private string currentTheme = "dark";
+    private string LogoSrc => currentTheme == "dark" ? "/images/singular_horizontal_branco.svg" : "/images/aceite1.svg";
+    private string ThemeIcon => currentTheme == "dark" ? "☀️" : "🌙";
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentTheme = await ThemeService.GetCurrentThemeAsync();
+    }
+
+    private void NavigateToHome()
+    {
+        Navigation.NavigateTo("/");
+    }
+
+    private void NavigateToContact()
+    {
+        Navigation.NavigateTo("/contacto");
+    }
+
+    private async Task ToggleTheme()
+    {
+        await ThemeService.ToggleThemeAsync();
+        currentTheme = await ThemeService.GetCurrentThemeAsync();
+    }
+}

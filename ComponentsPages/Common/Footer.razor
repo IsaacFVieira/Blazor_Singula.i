@@ -1,0 +1,54 @@
+﻿@using Singular.Services
+@inject NavigationManager Navigation
+@inject ThemeService ThemeService
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <div class="footer-logo">
+                <img src="@LogoSrc" alt="SINGULAR.i" class="footer-logo-image" @onclick="NavigateToHome" />
+            </div>
+            <p class="footer-description">
+                Soluções modernas em desenvolvimento de software. Criamos sistemas digitais, plataformas web e soluções tecnológicas focadas em resolver problemas reais.
+            </p>
+        </div>
+        <div class="footer-section">
+            <h3 class="footer-title">Links</h3>
+            <nav class="footer-nav">
+                <a href="/" class="footer-link">Home</a>
+                <a href="/sobre" class="footer-link">Sobre</a>
+                <a href="/products" class="footer-link">Produtos</a>
+                <a href="/contacto" class="footer-link">Contacto</a>
+            </nav>
+        </div>
+        <div class="footer-section">
+            <h3 class="footer-title">Contacto</h3>
+            <div class="footer-contact">
+                <a href="mailto:singular.i.ao@gmail.com" class="footer-contact-link">singular.i.ao@gmail.com</a>
+                <p class="footer-contact-text">+244 946 570 104 / +244 958 736 918</p>
+                <p class="footer-contact-text">Huambo, Angola</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-bottom-container">
+            <a href="mailto:singular.i.ao@gmail.com" class="footer-bottom-link">singular.i.ao@gmail.com</a>
+            <p class="footer-copyright">© 2026 SINGULAR.i. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private string currentTheme = "dark";
+    private string LogoSrc => currentTheme == "dark" ? "/images/singular_horizontal_branco.svg" : "/images/aceite1.svg";
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentTheme = await ThemeService.GetCurrentThemeAsync();
+    }
+
+    private void NavigateToHome()
+    {
+        Navigation.NavigateTo("/");
+    }
+}
