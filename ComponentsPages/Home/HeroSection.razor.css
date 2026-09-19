@@ -1,42 +1,65 @@
 .hero-section {
     width: 100%;
     background-color: #020617;
+    min-height: 600px;
+    position: relative;
 }
 
 .hero-container {
     width: 100%;
     max-width: 1920px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-mobile {
     display: block;
     width: 100%;
+    padding: 2rem 1rem;
 }
 
 .hero-desktop {
     display: none;
     width: 100%;
+    padding: 3rem 1rem;
 }
 
 .hero-mobile-image {
     width: 100%;
+    max-width: 400px;
     height: auto;
     object-fit: contain;
+    margin: 0 auto;
+    display: block;
 }
 
 .hero-desktop-image {
     width: 100%;
+    max-width: 1200px;
     height: auto;
     object-fit: contain;
+    margin: 0 auto;
+    display: block;
 }
 
 @media (min-width: 768px) {
+    .hero-section {
+        min-height: 700px;
+    }
+
     .hero-mobile {
         display: none;
     }
 
     .hero-desktop {
         display: block;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-section {
+        min-height: 800px;
     }
 }

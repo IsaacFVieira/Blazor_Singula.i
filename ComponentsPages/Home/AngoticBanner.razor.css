@@ -1,19 +1,21 @@
 .angotic-banner {
     width: 100%;
-    margin: 4rem 0;
+    margin: 3rem 0;
 }
 
 .banner-image-container {
     position: relative;
     width: 100%;
     overflow: hidden;
+    min-height: 400px;
 }
 
 .banner-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
+    min-height: 400px;
 }
 
 .banner-overlay {
@@ -22,16 +24,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .banner-content {
-    text-align: center;
+    text-align: left;
     padding: 2rem;
-    max-width: 800px;
+    max-width: 700px;
 }
 
 .banner-title {
@@ -39,11 +41,12 @@
     font-weight: 700;
     color: white;
     margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 .banner-text {
     font-size: 1rem;
-    color: white;
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 1.5rem;
     line-height: 1.6;
 }
@@ -55,22 +58,36 @@
     padding: 0.75rem 2rem;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .banner-button:hover {
     background-color: #059669;
+    transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
     .angotic-banner {
-        margin: 6rem 0;
+        margin: 4rem 0;
+    }
+
+    .banner-image-container {
+        min-height: 500px;
+    }
+
+    .banner-image {
+        min-height: 500px;
+    }
+
+    .banner-content {
+        padding: 3rem;
+        max-width: 600px;
     }
 
     .banner-title {
-        font-size: 2.25rem;
+        font-size: 2.5rem;
     }
 
     .banner-text {
@@ -80,5 +97,24 @@
     .banner-button {
         padding: 1rem 2.5rem;
         font-size: 1.125rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .banner-image-container {
+        min-height: 600px;
+    }
+
+    .banner-image {
+        min-height: 600px;
+    }
+
+    .banner-content {
+        padding: 4rem;
+        max-width: 700px;
+    }
+
+    .banner-title {
+        font-size: 3rem;
     }
 }
