@@ -14,19 +14,32 @@
             <a href="/servicos" class="nav-link">Serviços</a>
             <a href="/contacto" class="nav-link">Contacto</a>
         </nav>
-        <button class="header-cta" @onclick="NavigateToContact">
-            Contacto
-        </button>
-        <button class="theme-toggle" @onclick="ToggleTheme">
-            @ThemeIcon
+        <div class="header-actions">
+            <button class="header-cta" @onclick="NavigateToContact">
+                Contacto
+            </button>
+            <button class="language-toggle" @onclick="ToggleLanguage" title="@LanguageTitle">
+                🌐
+            </button>
+            <button class="theme-toggle" @onclick="ToggleTheme">
+                @ThemeIcon
+            </button>
+        </div>
+        <button class="mobile-menu-button" @onclick="ToggleMobileMenu" aria-label="Open menu">
+            ☰
         </button>
     </div>
 </header>
 
+<MobileMenu IsOpen="@isMobileMenuOpen" OnClose="CloseMobileMenu" />
+
 @code {
     private string currentTheme = "dark";
+    private string currentLanguage = "pt";
+    private bool isMobileMenuOpen = false;
     private string LogoSrc => currentTheme == "dark" ? "/images/singular_horizontal_branco.svg" : "/images/aceite1.svg";
     private string ThemeIcon => currentTheme == "dark" ? "☀️" : "🌙";
+    private string LanguageTitle => currentLanguage == "pt" ? "Switch to English" : "Mudar para Português";
 
     protected override async Task OnInitializedAsync()
     {
@@ -47,5 +60,22 @@
     {
         await ThemeService.ToggleThemeAsync();
         currentTheme = await ThemeService.GetCurrentThemeAsync();
+    }
+
+    private void ToggleLanguage()
+    {
+        currentLanguage = currentLanguage == "pt" ? "en" : "pt";
+        // Note: Full i18n implementation would require a translation service
+        // This is a placeholder for the UI element
+    }
+
+    private void ToggleMobileMenu()
+    {
+        isMobileMenuOpen = true;
+    }
+
+    private void CloseMobileMenu()
+    {
+        isMobileMenuOpen = false;
     }
 }

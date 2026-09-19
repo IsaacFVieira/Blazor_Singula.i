@@ -4,6 +4,13 @@
     <div class="hero-container">
         <div class="hero-mobile">
             <img src="/images/logo_singular_letras_brancas_Sem_slogan.svg" alt="SINGULAR.i" class="hero-mobile-image" />
+            <h1 class="hero-mobile-title">Soluções modernas em desenvolvimento de software.</h1>
+            <p class="hero-mobile-description">Desenvolvemos sistemas digitais, plataformas web e soluções tecnológicas focadas em resolver problemas reais.</p>
+            <p class="hero-mobile-location">Huambo, Angola</p>
+            <div class="hero-mobile-buttons">
+                <button class="hero-button hero-button-primary" @onclick="NavigateToProducts">Ver Produtos</button>
+                <button class="hero-button hero-button-outline" @onclick="NavigateToContact">Contactar</button>
+            </div>
         </div>
         <div class="hero-desktop">
             <img src="/images/fundo_site_letras_brancas.svg" alt="SINGULAR.i" class="hero-desktop-image" />
@@ -12,5 +19,13 @@
 </section>
 
 @code {
+    private void NavigateToProducts()
+    {
+        Navigation.NavigateTo("/products");
+    }
 
+    private void NavigateToContact()
+    {
+        Navigation.NavigateTo("/contacto");
+    }
 }

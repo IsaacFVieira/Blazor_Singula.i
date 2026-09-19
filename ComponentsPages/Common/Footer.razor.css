@@ -64,6 +64,17 @@
     gap: 0.625rem;
 }
 
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.footer-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
 .footer-contact-link {
     color: var(--text-secondary);
     text-decoration: none;

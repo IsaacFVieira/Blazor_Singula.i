@@ -1,6 +1,6 @@
 .hero-section {
     width: 100%;
-    background-color: #020617;
+    background-color: #0a0a0a;
     min-height: 600px;
     position: relative;
 }
@@ -18,6 +18,9 @@
     display: block;
     width: 100%;
     padding: 2rem 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .hero-desktop {
@@ -33,6 +36,66 @@
     object-fit: contain;
     margin: 0 auto;
     display: block;
+}
+
+.hero-mobile-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.hero-mobile-description {
+    font-size: 1rem;
+    color: #d1d5db;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.hero-mobile-location {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    text-align: center;
+}
+
+.hero-mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 1rem;
+}
+
+.hero-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.hero-button-primary {
+    background-color: #10b981;
+    color: white;
+}
+
+.hero-button-primary:hover {
+    background-color: #059669;
+}
+
+.hero-button-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.hero-button-outline:hover {
+    background-color: white;
+    color: black;
 }
 
 .hero-desktop-image {

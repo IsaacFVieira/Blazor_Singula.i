@@ -1,19 +1,30 @@
 .about-section {
-    padding: 3rem 1rem;
+    padding: 4rem 1rem;
     background-color: var(--bg-primary);
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
-    text-align: center;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .section-title {
     font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     color: var(--text-primary);
 }
 
@@ -24,13 +35,45 @@
     line-height: 1.6;
 }
 
+.about-text-secondary {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.mission-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 2rem;
+}
+
+.mission-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.mission-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
 @media (min-width: 768px) {
     .about-section {
-        padding: 4rem 1rem;
+        padding: 5rem 1rem;
     }
 
     .container {
-        max-width: 800px;
+        max-width: 1000px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
     }
 
     .section-title {
@@ -40,15 +83,19 @@
     .about-text {
         font-size: 1.125rem;
     }
+
+    .about-text-secondary {
+        font-size: 1.125rem;
+    }
 }
 
 @media (min-width: 1024px) {
     .about-section {
-        padding: 5rem 1rem;
+        padding: 6rem 1rem;
     }
 
     .container {
-        max-width: 900px;
+        max-width: 1200px;
     }
 
     .section-title {

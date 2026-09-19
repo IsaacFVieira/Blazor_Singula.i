@@ -1,0 +1,20 @@
+@inject NavigationManager Navigation
+
+<section class="hero-cta-section">
+    <div class="hero-cta-container">
+        <button class="hero-cta-button hero-cta-button-primary" @onclick="NavigateToProducts">Ver Produtos</button>
+        <button class="hero-cta-button hero-cta-button-outline" @onclick="NavigateToContact">Contactar</button>
+    </div>
+</section>
+
+@code {
+    private void NavigateToProducts()
+    {
+        Navigation.NavigateTo("/products");
+    }
+
+    private void NavigateToContact()
+    {
+        Navigation.NavigateTo("/contacto");
+    }
+}

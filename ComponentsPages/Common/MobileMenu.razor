@@ -1,0 +1,61 @@
+@inject NavigationManager Navigation
+
+<div class="mobile-menu-overlay @OverlayClass" @onclick="OnOverlayClick"></div>
+
+<div class="mobile-menu @MenuClass">
+    <div class="mobile-menu-header">
+        <img src="@LogoSrc" alt="SINGULAR.i" class="mobile-menu-logo" @onclick="NavigateToHome" />
+        <button class="mobile-menu-close" @onclick="OnClose">✕</button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="/" class="mobile-menu-link" @onclick="OnLinkClick">Home</a>
+        <a href="/sobre" class="mobile-menu-link" @onclick="OnLinkClick">Sobre</a>
+        <a href="/products" class="mobile-menu-link" @onclick="OnLinkClick">Produtos</a>
+        <a href="/servicos" class="mobile-menu-link" @onclick="OnLinkClick">Serviços</a>
+        <a href="/contacto" class="mobile-menu-link" @onclick="OnLinkClick">Contacto</a>
+    </nav>
+    <div class="mobile-menu-footer">
+        <button class="mobile-menu-cta" @onclick="NavigateToContact">Contacto</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    private string currentTheme = "dark";
+    private string LogoSrc => currentTheme == "dark" ? "/images/singular_horizontal_branco.svg" : "/images/aceite1.svg";
+    private string OverlayClass => IsOpen ? "mobile-menu-overlay--open" : "";
+    private string MenuClass => IsOpen ? "mobile-menu--open" : "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        // In a real implementation, you would inject ThemeService here
+        currentTheme = "dark";
+    }
+
+    private void OnOverlayClick()
+    {
+        OnClose.InvokeAsync();
+    }
+
+    private void OnLinkClick()
+    {
+        OnClose.InvokeAsync();
+    }
+
+    private void NavigateToHome()
+    {
+        Navigation.NavigateTo("/");
+        OnClose.InvokeAsync();
+    }
+
+    private void NavigateToContact()
+    {
+        Navigation.NavigateTo("/contacto");
+        OnClose.InvokeAsync();
+    }
+}

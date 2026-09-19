@@ -1,5 +1,53 @@
-﻿<h3>TalkAI</h3>
+﻿@using Microsoft.AspNetCore.Components.Web
+
+<div class="ai-chat-widget">
+    <button class="ai-chat-button" @onclick="ToggleChat" title="Chat com IA">
+        <span class="ai-chat-icon">🤖</span>
+    </button>
+    
+    @if (isOpen)
+    {
+        <div class="ai-chat-window">
+            <div class="ai-chat-header">
+                <h3 class="ai-chat-title">Singular IA</h3>
+                <button class="ai-chat-close" @onclick="ToggleChat">✕</button>
+            </div>
+            <div class="ai-chat-messages">
+                <div class="ai-message ai-message-bot">
+                    <p>Olá! Sou a Singular IA. Posso responder perguntas sobre a SINGULAR.i, os seus serviços e os seus produtos. Como posso ajudar?</p>
+                </div>
+            </div>
+            <div class="ai-chat-input">
+                <input type="text" placeholder="Escreva a sua mensagem..." class="ai-chat-textbox" @bind="message" @onkeypress="HandleKeyPress" />
+                <button class="ai-chat-send" @onclick="SendMessage">Enviar</button>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
+    private bool isOpen = false;
+    private string message = string.Empty;
 
+    private void ToggleChat()
+    {
+        isOpen = !isOpen;
+    }
+
+    private void HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            SendMessage();
+        }
+    }
+
+    private void SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            // In a real implementation, this would send the message to an AI service
+            message = string.Empty;
+        }
+    }
 }
