@@ -4,7 +4,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -21,15 +22,17 @@
     top: 0;
     right: 0;
     bottom: 0;
-    width: 80%;
-    max-width: 400px;
-    background-color: var(--bg-card);
+    width: 320px;
+    max-width: 90vw;
+    background-color: rgba(var(--bg-card-rgb, 20, 20, 20), 0.95);
+    backdrop-filter: blur(20px);
     transform: translateX(100%);
     transition: transform 0.3s ease;
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-left: 1px solid var(--border-color);
 }
 
 .mobile-menu--open {
@@ -37,75 +40,153 @@
 }
 
 .mobile-menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.mobile-menu-logo {
-    height: 36px;
-    width: auto;
-    cursor: pointer;
+    padding: 1.5rem;
+    position: relative;
 }
 
 .mobile-menu-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
     background: none;
     border: none;
-    font-size: 1.5rem;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
 }
 
 .mobile-menu-close:hover {
     background-color: var(--bg-primary);
+    transform: rotate(90deg);
+}
+
+.mobile-menu-close svg {
+    color: var(--text-secondary);
+}
+
+.mobile-menu-title {
+    padding: 0 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.mobile-menu-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #10b981;
+    margin: 0;
+    letter-spacing: -0.025em;
+}
+
+.mobile-menu-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0 0;
 }
 
 .mobile-menu-nav {
+    flex: 1;
+    padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
+    gap: 0.25rem;
 }
 
 .mobile-menu-link {
-    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 500;
     padding: 1rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
 }
 
 .mobile-menu-link:hover {
+    color: var(--text-primary);
     background-color: var(--bg-primary);
+}
+
+.mobile-menu-link svg {
     color: #10b981;
+    transition: transform 0.2s ease;
+}
+
+.mobile-menu-link:hover svg {
+    transform: scale(1.1);
+}
+
+.mobile-menu-link span {
+    font-weight: 500;
 }
 
 .mobile-menu-footer {
-    padding-top: 1rem;
+    padding: 1.5rem;
     border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.mobile-menu-cta {
-    width: 100%;
-    background-color: #10b981;
-    color: white;
-    border: none;
+.mobile-menu-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    background-color: var(--bg-primary);
+    border-radius: 0.75rem;
 }
 
-.mobile-menu-cta:hover {
-    background-color: #059669;
+.theme-toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle-button svg {
+    color: var(--text-secondary);
+}
+
+.theme-toggle-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.language-toggle-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    border: none;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.language-toggle-button:hover {
+    background-color: var(--bg-card);
+}
+
+.language-toggle-button:active {
+    transform: scale(0.98);
+}
+
+.language-toggle-button svg {
+    color: #10b981;
+}
+
+.language-toggle-label {
+    color: var(--text-secondary);
+    font-weight: 500;
 }

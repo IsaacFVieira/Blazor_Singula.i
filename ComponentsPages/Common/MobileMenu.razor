@@ -1,61 +1,120 @@
-@inject NavigationManager Navigation
+@using Singular.Services
+@inject ThemeService ThemeService
 
-<div class="mobile-menu-overlay @OverlayClass" @onclick="OnOverlayClick"></div>
+<div class="mobile-menu-overlay"></div>
 
-<div class="mobile-menu @MenuClass">
+<div class="mobile-menu">
     <div class="mobile-menu-header">
-        <img src="@LogoSrc" alt="SINGULAR.i" class="mobile-menu-logo" @onclick="NavigateToHome" />
-        <button class="mobile-menu-close" @onclick="OnClose">✕</button>
+        <button class="mobile-menu-close" aria-label="Close menu" onclick="window.singularMobileMenu.close()">
+            <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
     </div>
+    
+    <div class="mobile-menu-title">
+        <h2 class="mobile-menu-heading">Menu</h2>
+        <p class="mobile-menu-subtitle">Navegue pelo site</p>
+    </div>
+    
     <nav class="mobile-menu-nav">
-        <a href="/" class="mobile-menu-link" @onclick="OnLinkClick">Home</a>
-        <a href="/sobre" class="mobile-menu-link" @onclick="OnLinkClick">Sobre</a>
-        <a href="/products" class="mobile-menu-link" @onclick="OnLinkClick">Produtos</a>
-        <a href="/servicos" class="mobile-menu-link" @onclick="OnLinkClick">Serviços</a>
-        <a href="/contacto" class="mobile-menu-link" @onclick="OnLinkClick">Contacto</a>
+        <a href="/" class="mobile-menu-link">
+            <svg class="menu-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="/sobre" class="mobile-menu-link">
+            <svg class="menu-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>Sobre</span>
+        </a>
+        <a href="/servicos" class="mobile-menu-link">
+            <svg class="menu-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <span>Serviços</span>
+        </a>
+        <a href="/products" class="mobile-menu-link">
+            <svg class="menu-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                <path d="M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"></path>
+                <line x1="12" y1="22" x2="12" y2="15"></line>
+                <polyline points="12 15 9 18 15 18"></polyline>
+            </svg>
+            <span>Produtos</span>
+        </a>
+        <a href="/contacto" class="mobile-menu-link">
+            <svg class="menu-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Contacto</span>
+        </a>
     </nav>
+
     <div class="mobile-menu-footer">
-        <button class="mobile-menu-cta" @onclick="NavigateToContact">Contacto</button>
+        <div class="mobile-menu-theme-toggle">
+            <button class="theme-toggle-button" @onclick="ToggleTheme">
+                @if (currentTheme == "dark")
+                {
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                }
+                else
+                {
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                }
+            </button>
+            <span class="theme-toggle-label">Tema</span>
+        </div>
+
+        <button class="language-toggle-button" @onclick="ToggleLanguage">
+            <svg class="globe-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span class="language-toggle-label">@LanguageLabel</span>
+        </button>
     </div>
 </div>
 
 @code {
-    [Parameter]
-    public bool IsOpen { get; set; }
-
-    [Parameter]
-    public EventCallback OnClose { get; set; }
-
     private string currentTheme = "dark";
-    private string LogoSrc => currentTheme == "dark" ? "/images/singular_horizontal_branco.svg" : "/images/aceite1.svg";
-    private string OverlayClass => IsOpen ? "mobile-menu-overlay--open" : "";
-    private string MenuClass => IsOpen ? "mobile-menu--open" : "";
+    private string currentLanguage = "pt";
+    private string LanguageLabel => currentLanguage == "pt" ? "Switch to English" : "Mudar para Português";
 
     protected override async Task OnInitializedAsync()
     {
-        // In a real implementation, you would inject ThemeService here
-        currentTheme = "dark";
+        currentTheme = await ThemeService.GetCurrentThemeAsync();
     }
 
-    private void OnOverlayClick()
+    private async Task ToggleTheme()
     {
-        OnClose.InvokeAsync();
+        await ThemeService.ToggleThemeAsync();
+        currentTheme = await ThemeService.GetCurrentThemeAsync();
     }
 
-    private void OnLinkClick()
+    private void ToggleLanguage()
     {
-        OnClose.InvokeAsync();
-    }
-
-    private void NavigateToHome()
-    {
-        Navigation.NavigateTo("/");
-        OnClose.InvokeAsync();
-    }
-
-    private void NavigateToContact()
-    {
-        Navigation.NavigateTo("/contacto");
-        OnClose.InvokeAsync();
+        currentLanguage = currentLanguage == "pt" ? "en" : "pt";
     }
 }

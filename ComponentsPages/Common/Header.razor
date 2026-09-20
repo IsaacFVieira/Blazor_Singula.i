@@ -1,6 +1,8 @@
 ﻿@using Singular.Services
+@using Microsoft.JSInterop
 @inject NavigationManager Navigation
 @inject ThemeService ThemeService
+@inject IJSRuntime JSRuntime
 
 <header class="header">
     <div class="header-container">
@@ -17,33 +19,116 @@
         <div class="header-actions">
             <button class="header-cta" @onclick="NavigateToContact">
                 Contacto
+                <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
             </button>
             <button class="language-toggle" @onclick="ToggleLanguage" title="@LanguageTitle">
-                🌐
+                <svg class="globe-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
             </button>
             <button class="theme-toggle" @onclick="ToggleTheme">
-                @ThemeIcon
+                @if (currentTheme == "dark")
+                {
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                }
+                else
+                {
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                }
             </button>
         </div>
         <button class="mobile-menu-button" @onclick="ToggleMobileMenu" aria-label="Open menu">
-            ☰
+            <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
         </button>
     </div>
 </header>
 
-<MobileMenu IsOpen="@isMobileMenuOpen" OnClose="CloseMobileMenu" />
-
 @code {
     private string currentTheme = "dark";
     private string currentLanguage = "pt";
-    private bool isMobileMenuOpen = false;
     private string LogoSrc => currentTheme == "dark" ? "/images/singular_horizontal_branco.svg" : "/images/aceite1.svg";
-    private string ThemeIcon => currentTheme == "dark" ? "☀️" : "🌙";
     private string LanguageTitle => currentLanguage == "pt" ? "Switch to English" : "Mudar para Português";
 
     protected override async Task OnInitializedAsync()
     {
         currentTheme = await ThemeService.GetCurrentThemeAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("eval", @"
+                if (typeof window.singularMobileMenu === 'undefined') {
+                    window.singularMobileMenu = {
+                        isOpen: false,
+                        open: function() {
+                            this.isOpen = true;
+                            document.body.style.overflow = 'hidden';
+                            document.body.style.position = 'fixed';
+                            document.body.style.width = '100%';
+                            document.body.style.top = '-' + window.scrollY + 'px';
+                            const overlay = document.querySelector('.mobile-menu-overlay');
+                            const menu = document.querySelector('.mobile-menu');
+                            if (overlay) overlay.classList.add('mobile-menu-overlay--open');
+                            if (menu) menu.classList.add('mobile-menu--open');
+                        },
+                        close: function() {
+                            const scrollY = document.body.style.top;
+                            this.isOpen = false;
+                            document.body.style.position = '';
+                            document.body.style.width = '';
+                            document.body.style.overflow = '';
+                            document.body.style.top = '';
+                            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                            const overlay = document.querySelector('.mobile-menu-overlay');
+                            const menu = document.querySelector('.mobile-menu');
+                            if (overlay) overlay.classList.remove('mobile-menu-overlay--open');
+                            if (menu) menu.classList.remove('mobile-menu--open');
+                        },
+                        toggle: function() {
+                            if (this.isOpen) {
+                                this.close();
+                            } else {
+                                this.open();
+                            }
+                        },
+                        init: function() {
+                            const overlay = document.querySelector('.mobile-menu-overlay');
+                            if (overlay) {
+                                overlay.addEventListener('click', () => this.close());
+                            }
+                            const links = document.querySelectorAll('.mobile-menu-link');
+                            links.forEach(link => {
+                                link.addEventListener('click', () => this.close());
+                            });
+                        }
+                    };
+                    window.singularMobileMenu.init();
+                }
+            ");
+        }
     }
 
     private void NavigateToHome()
@@ -69,13 +154,8 @@
         // This is a placeholder for the UI element
     }
 
-    private void ToggleMobileMenu()
+    private async Task ToggleMobileMenu()
     {
-        isMobileMenuOpen = true;
-    }
-
-    private void CloseMobileMenu()
-    {
-        isMobileMenuOpen = false;
+        await JSRuntime.InvokeVoidAsync("window.singularMobileMenu.toggle");
     }
 }

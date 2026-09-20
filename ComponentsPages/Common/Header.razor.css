@@ -42,16 +42,26 @@
     display: block;
     background: none;
     border: none;
-    font-size: 1.5rem;
     color: var(--text-primary);
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: 0.5rem;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mobile-menu-button:hover {
     background-color: var(--bg-card);
+}
+
+.mobile-menu-button:active {
+    transform: scale(0.95);
+}
+
+.mobile-menu-button svg {
+    color: var(--text-secondary);
 }
 
 .nav-link {
@@ -70,32 +80,44 @@
     background-color: #10b981;
     color: white;
     border: none;
-    padding: 0.5rem 1.25rem;
+    padding: 0.5rem 1rem;
     font-size: 0.875rem;
     font-weight: 600;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .header-cta:hover {
     background-color: #059669;
-    transform: translateY(-1px);
+}
+
+.arrow-icon {
+    color: white;
 }
 
 .theme-toggle {
     background: none;
-    border: 1px solid var(--border-color);
+    border: none;
     border-radius: 0.5rem;
     padding: 0.5rem;
     cursor: pointer;
-    font-size: 1.1rem;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .theme-toggle:hover {
     background-color: var(--bg-card);
     transform: scale(1.05);
+}
+
+.theme-toggle svg {
+    color: var(--text-secondary);
 }
 
 .language-toggle {
@@ -104,13 +126,19 @@
     border-radius: 0.5rem;
     padding: 0.5rem;
     cursor: pointer;
-    font-size: 1.1rem;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .language-toggle:hover {
     background-color: var(--bg-card);
     transform: scale(1.05);
+}
+
+.language-toggle svg {
+    color: var(--text-secondary);
 }
 
 @media (min-width: 768px) {
