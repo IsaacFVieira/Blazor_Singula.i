@@ -1,0 +1,51 @@
+﻿@inject NavigationManager Navigation
+
+<div class="product-card" style="background-color: #282a36; padding: 1.5rem 2rem; border-radius: 1rem; border: 1px solid #282a36; transition: all 0.3s ease; cursor: pointer; height: 100%;" onclick="@(() => Navigation.NavigateTo(Link))">
+    <div class="product-card-header" style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem;">
+        <div class="product-icon-wrapper" style="width: 4rem; height: 4rem; background-color: rgba(0, 255, 157, 0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: #00ff9d;">
+            <img src="@IconSrc" alt="@Title" style="width: 4rem; height: 4rem; object-fit: contain; border-radius: 0.75rem;" />
+        </div>
+        <span class="product-category" style="padding: 0.25rem 0.75rem; background-color: #282a36; color: #a0a0a0; font-size: 0.75rem; font-weight: 600; border-radius: 9999px;">@Category</span>
+    </div>
+    <h3 class="product-title" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: #ffffff;">@Title</h3>
+    <p class="product-description" style="font-size: 0.875rem; color: #a0a0a0; margin-bottom: 1.5rem; line-height: 1.75;">@Description</p>
+    <div class="product-footer" style="display: flex; align-items: center; justify-content: flex-end; padding-top: 1rem; border-top: 1px solid #282a36;">
+        <div class="product-link" style="display: flex; align-items: center; gap: 0.5rem; color: #00ff9d; transition: all 0.3s ease;">
+            <span style="font-size: 0.875rem; font-weight: 500;">Ver detalhes</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-card:hover {
+        border-color: #00ff9d;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+    .product-card:hover .product-title {
+        color: #00ff9d;
+    }
+    .product-card:hover .product-link {
+        gap: 0.75rem;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Description { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Category { get; set; } = string.Empty;
+
+    [Parameter]
+    public string IconSrc { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Link { get; set; } = string.Empty;
+}
